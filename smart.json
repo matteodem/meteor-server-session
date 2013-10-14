@@ -3,6 +3,6 @@
   "description": "Serverside Session through a Meteor.Collection (get, set, equals etc.)",
   "homepage": "https://github.com/matteodem/meteor-server-session",
   "author": "Matteo De Micheli",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "git": "https://github.com/matteodem/meteor-server-session.git"
 }
