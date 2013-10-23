@@ -7,6 +7,7 @@ Package.on_use(function (api) {
     api.use('underscore', 'client');
     api.use('jquery', 'server');
     api.use('underscore', 'server');
+    api.use(['livedata', 'mongo-livedata'], ['client', 'server']);
 
     api.export('ServerSession');
 
