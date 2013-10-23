@@ -1,12 +1,16 @@
-// to be defined
-
 Tinytest.add('ServerSession - set', function (test) {
+    if (Meteor.isServer) {
+        test.isUndefined(ServerSession.setCondition(function () {
+            return true;
+        }));
+    }
+    
     test.throws(function () {
             ServerSession.set();
         }, Error, 'Should throw an error if no key and value are provided when using set'
     );
 
-    test.equal(undefined, ServerSession.set('testKey', 'testValue'));
+    test.isUndefined(ServerSession.set('testKey', 'testValue'));
     test.equal('testValue', ServerSession.get('testKey'));
     ServerSession.set('testKey');
     test.isTrue(undefined == ServerSession.get('testKey') || null == ServerSession.get('testKey'));
@@ -55,3 +59,26 @@ Tinytest.add('ServerSession - equals (not identical)', function (test) {
     test.isTrue(ServerSession.equals('54321', true, false));
     test.isFalse(ServerSession.equals('aStringString', 'stringity11', false));
 });
+
+if (Meteor.isServer) {
+    Tinytest.add('ServerSession - Conditions', function (test) {
+        test.isUndefined(ServerSession.setCondition(function () {
+            return false;
+        }));
+        
+        test.throws(function () {
+            ServerSession.set('bla', { foo : 'bar' });
+        }, Meteor.Error);
+        
+        test.isFalse(ServerSession.equals('bla', { foo : 'bar' }));
+        
+        // Also test with return true
+        test.isUndefined(ServerSession.setCondition(function () {
+            return true;
+        }));
+        
+        ServerSession.set('newBla', { foo : 'bar' });
+        test.equal('bar', ServerSession.get('newBla').foo);
+        ServerSession.set('newBla', undefined);
+    });
+}
