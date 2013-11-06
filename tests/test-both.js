@@ -39,10 +39,18 @@ Tinytest.add('ServerSession - equals (identical)', function (test) {
     ServerSession.set('aRandomString', 'aRandomString1');
     ServerSession.set('array', [1, 2, 3, ['4', '5', '6', [11, 12, 31]]]);
     ServerSession.set('object', { 'keyOfObject' : '_value'});
+    ServerSession.set('emptyObj', {});
+    ServerSession.set('emptyArray', []);
 
     test.isTrue(ServerSession.equals('null', null));
     test.isTrue(ServerSession.equals('true', true));
     test.isTrue(ServerSession.equals('54321', 54321));
+    test.isTrue(ServerSession.equals('emptyObj', {}));
+    test.isTrue(ServerSession.equals('emptyArray', []));
+    test.isTrue(ServerSession.equals('array', [1, 2, 3, ['4', '5', '6', [11, 12, 31]]]));
+
+    test.isFalse(ServerSession.equals('emptyObj', []));
+    test.isFalse(ServerSession.equals('emptyArray', {}));
     test.isFalse(ServerSession.equals('aRandomString', 'aRandomString'));
     test.isFalse(ServerSession.equals('array', [1, 2, 3, ['4', '5', '6', [11, 12, 30]]]));
     test.isFalse(ServerSession.equals('object', { 'keyOfObject' : 'value'}));
@@ -67,18 +75,18 @@ if (Meteor.isServer) {
         }));
         
         test.throws(function () {
-            ServerSession.set('bla', { foo : 'bar' });
+            ServerSession.set('theKey', { foo : 'bar' });
         }, Meteor.Error);
         
-        test.isFalse(ServerSession.equals('bla', { foo : 'bar' }));
+        test.isFalse(ServerSession.equals('theKey', { foo : 'bar' }));
         
         // Also test with return true
         test.isUndefined(ServerSession.setCondition(function () {
             return true;
         }));
         
-        ServerSession.set('newBla', { foo : 'bar' });
-        test.equal('bar', ServerSession.get('newBla').foo);
-        ServerSession.set('newBla', undefined);
+        ServerSession.set('newKey', { foo : 'bar' });
+        test.equal('bar', ServerSession.get('newKey').foo);
+        ServerSession.set('newKey', undefined);
     });
 }
