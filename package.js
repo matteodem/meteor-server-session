@@ -3,9 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-    api.use('jquery', 'client');
     api.use('underscore', 'client');
-    api.use('jquery', 'server');
     api.use('underscore', 'server');
     api.use(['livedata', 'mongo-livedata'], ['client', 'server']);
 
