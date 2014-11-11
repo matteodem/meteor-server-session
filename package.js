@@ -1,6 +1,6 @@
 Package.describe({
     name: 'matteodem:server-session',
-    summary : "Serverside Session through a Meteor.Collection (get, set, equals etc.)"
+    summary : "Serverside Session through a Meteor.Collection (get, set, equals etc.)",
     version: "0.4.2",
     git: "https://github.com/matteodem/meteor-server-session.git"
 });
@@ -22,7 +22,7 @@ Package.on_use(function (api) {
 
 Package.on_test(function (api) {
     api.use(
-        ['server-session', 'tinytest', 'test-helpers']
+        ['matteodem:server-session', 'tinytest', 'test-helpers']
     );
 
     api.add_files(

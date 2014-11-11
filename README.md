@@ -16,7 +16,6 @@ ServerSession.setCondition(function (key, value)); // Should only be invoked on 
 There's no setDefault now, as it doesn't make any sense to me as of now, write a ticket if you think otherwise.
 
 ```sh
-mrt add server-session
+meteor add matteodem:server-session
 ```
 
-No tests written yet
