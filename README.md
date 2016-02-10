@@ -1,7 +1,7 @@
 Meteor ServerSession
 =====================
 
-This package provides a simple serverside implementation of the [Session](http://docs.meteor.com/#session). It uses the same API:
+This package provides a simple serverside implementation of the [Session](http://docs.meteor.com/#session). You can use it for site wide configuration, the server side session does not differ per user. It uses the same API:
 
 ```javascript
 ServerSession.set(key, value);
